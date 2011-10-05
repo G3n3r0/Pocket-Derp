@@ -81,21 +81,21 @@ window.onload = function(e) {
             neutral: 0
         };
         this.sSheet = new SpriteSheet(this.img, 48, 48,this.fdata);
-        this.width = 24;
-        this.height = 24;
-        //this.bs = new BitmapSequence(this.sSheet);
+        this.width = 48;
+        this.height = 48;
+        this.bs = new BitmapSequence(this.sSheet);
         //this.bs = new Bitmap(this.img);
-        //this.bs.y = this.y;
-        //this.bs.x = this.x;
-        //this.bs.gotoAndStop("neutral");
-        //this.bs.mouseEnabled = true;
-        //this.bs.onClick = function(e) {
-        //    e.onMouseMove = function(e2) {
-        //        console.log(e,e2);
-        //    };
-        //};
-        //stage.addChildAt(this.bs,2);
-        this.g = new Graphics();
+        this.bs.y = this.y;
+        this.bs.x = this.x;
+        this.bs.gotoAndStop("neutral");
+        this.bs.mouseEnabled = true;
+        this.bs.onClick = function(e) {
+            e.onMouseMove = function(e2) {
+                console.log(e,e2);
+            };
+        };
+        stage.addChildAt(this.bs,2);
+        /*this.g = new Graphics();
         this.g.beginFill("black");
         this.g.drawRoundRect(0,0,this.width,this.height,this.width/2,this.height/2);
         this.bit = new Shape(this.g);
@@ -116,7 +116,7 @@ window.onload = function(e) {
                 t.pressDown = false;
             };
         };
-        stage.addChild(this.bit);
+        stage.addChild(this.bit);*/
         
         stage.update();
         //this.step = 1;
@@ -131,9 +131,9 @@ window.onload = function(e) {
             if(this.y>canvas.height) {
                 this.y = 0;
             }
-            this.bit.y = this.y;
-            this.bit.x = this.x;
-            stage.addChild(this.bit);
+            this.bs.y = this.y;
+            this.bs.x = this.x;
+            stage.addChild(this.bs);
         };
     }
     
