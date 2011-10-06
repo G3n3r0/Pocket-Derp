@@ -80,7 +80,7 @@ window.onload = function(e) {
         this.fdata = {
             neutral: 0
         };
-        this.sSheet = new SpriteSheet(this.img, 48, 48,this.fdata);
+        /*this.sSheet = new SpriteSheet(this.img, 48, 48,this.fdata);
         this.width = 48;
         this.height = 48;
         this.bs = new BitmapSequence(this.sSheet);
@@ -94,9 +94,14 @@ window.onload = function(e) {
                 console.log(e,e2);
             };
         };
-        stage.addChildAt(this.bs,2);
-        /*this.g = new Graphics();
-        this.g.beginFill("black");
+        stage.addChildAt(this.bs,2);*/
+        this.width = 24;
+        this.height = 24;
+        this.g = new Graphics();
+        //this.g.beginFill("black");
+        this.g.setStrokeStyle(1.5).beginStroke("black");
+        this.g.beginLinearGradientFill(["#F00", "#FF0" ,"#0F0", "#0FF" ,"#00F"], [0, 0.25, 0.5, 0.75, 1], 0, 0, this.width, 0);
+        //this.g.beginRadialGradientFill(["#F00", "#FF0" ,"#0F0", "#0FF" ,"#00F"], [0, 0.25, 0.5, 0.75, 1], 0, 0, this.width/2, 0, this.height,this.width);
         this.g.drawRoundRect(0,0,this.width,this.height,this.width/2,this.height/2);
         this.bit = new Shape(this.g);
         this.bit.x = canvas.width/2-this.width/2;
@@ -116,11 +121,13 @@ window.onload = function(e) {
                 t.pressDown = false;
             };
         };
-        stage.addChild(this.bit);*/
+        //console.log(this.bit);
+        stage.addChild(this.bit);
         
         stage.update();
         //this.step = 1;
         this.update = function() {
+            //console.log("derpus");
             if(E(this,ground) && this.y<=ground.y-this.height) {
                 //console.log("Bam",this.y,ground.y);
                 this.onGround = true;
@@ -131,9 +138,9 @@ window.onload = function(e) {
             if(this.y>canvas.height) {
                 this.y = 0;
             }
-            this.bs.y = this.y;
-            this.bs.x = this.x;
-            stage.addChild(this.bs);
+            this.bit.y = this.y;
+            this.bit.x = this.x;
+            stage.addChild(this.bit);
         };
     }
     
@@ -142,8 +149,10 @@ window.onload = function(e) {
     stage.enableMouseOver(10);
     
     window.tick = function() {
+        //console.log(players,players.length);
         for(var i=0;i<players.length;i++) {
             var player = players[i];
+            //console.log(player);
             player.update();
         }
         stage.update();
@@ -176,9 +185,9 @@ window.onload = function(e) {
             //stage.update();
         };
         stage.addChild(player.bit);*/
-        stage.update();
-        Ticker.setFPS(32);
-        Ticker.addListener(window);
+        //stage.update();
+        //Ticker.setFPS(32);
+        //Ticker.addListener(window);
     }
     
     function init(g) {
@@ -193,7 +202,7 @@ window.onload = function(e) {
             pImg.src = "./Graphics/nyan_cat4.png";
         }*/
         //pImg.src = "Graphics/mudkipSprites3.png";
-        pImg.src = "Scripts/fillerGraphic.svg";
+        pImg.src = "Graphics/fillerGraphic.svg";
         window.players = [];
         window.players.push(new Player(canvas.width/2-wid/2,hei,pImg));
         //console.log(player);
@@ -281,6 +290,9 @@ window.onload = function(e) {
         stage.addChild(ground);
         stage.addChild(s);
         stage.addChild(s2);
+        //stage.update();
+        Ticker.setFPS(32);
+        Ticker.addListener(window);
         stage.update();
     }
     init();

@@ -31,5 +31,6 @@ canvas:active {
 }*/
 canvas {
     border: 1px dotted black;
-    background-color: blue;
+    background: url(http://fc01.deviantart.net/fs5/i/2005/007/4/b/The_ocean_by_xipx.jpg) blue;
+    background-size: 100%;
 }
