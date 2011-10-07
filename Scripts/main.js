@@ -77,7 +77,7 @@ window.onload = function(e) {
             e3: 14,
             e4: 15
         };*/
-        this.fdata = {
+        /*this.fdata = {
             neutral: 0
         };
         this.sSheet = new SpriteSheet(this.img, 48, 48,this.fdata);
@@ -94,9 +94,14 @@ window.onload = function(e) {
                 console.log(e,e2);
             };
         };
-        stage.addChildAt(this.bs,2);
-        /*this.g = new Graphics();
-        this.g.beginFill("black");
+        stage.addChildAt(this.bs,2);*/
+        this.width = 24;
+        this.height = 24;
+        this.g = new Graphics();
+        this.g.setStrokeStyle(1.5);
+        this.g.beginStroke("black");
+        //this.g.beginLinearGradientFill(["#F00", "#FF0" ,"#0F0", "#0FF" ,"#00F"], [0, 0.25, 0.5, 0.75, 1], 0, 0, 0, this.height);
+        this.g.beginRadialGradientFill(["#F00", "#FF0" ,"#0F0", "#0FF" ,"#00F"], [0, 0.25, 0.5, 0.75, 1], 0, 0, this.width/2, 0, this.height, this.width);
         this.g.drawRoundRect(0,0,this.width,this.height,this.width/2,this.height/2);
         this.bit = new Shape(this.g);
         this.bit.x = canvas.width/2-this.width/2;
@@ -116,7 +121,7 @@ window.onload = function(e) {
                 t.pressDown = false;
             };
         };
-        stage.addChild(this.bit);*/
+        stage.addChild(this.bit);
         
         stage.update();
         //this.step = 1;
@@ -131,9 +136,9 @@ window.onload = function(e) {
             if(this.y>canvas.height) {
                 this.y = 0;
             }
-            this.bs.y = this.y;
-            this.bs.x = this.x;
-            stage.addChild(this.bs);
+            this.bit.y = this.y;
+            this.bit.x = this.x;
+            stage.addChild(this.bit);
         };
     }
     
