@@ -31,6 +31,8 @@ canvas:active {
 }*/
 canvas {
     border: 1px dotted black;
-    background: url(http://fc01.deviantart.net/fs5/i/2005/007/4/b/The_ocean_by_xipx.jpg) blue;
+    /*background: url(http://fc01.deviantart.net/fs5/i/2005/007/4/b/The_ocean_by_xipx.jpg) blue;
+    background: url(http://fc00.deviantart.net/fs70/i/2011/086/0/6/gallifrey___winds_of_time_by_azenor-d3cl3eo.jpg) orange;*/
+    background: url(http://fc00.deviantart.net/fs6/i/2005/065/7/2/Ziggurat_of_Ur__close__by_jgfeller_in_iraq.jpg) blue;
     background-size: 100%;
 }

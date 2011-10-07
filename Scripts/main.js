@@ -1,7 +1,23 @@
 window.onload = function(e) {
+    document.onselectstart = function() {return false;}; // ie
+    document.onmousedown = function() {return false;}; // mozilla
     var spd = [3,3];
     wid = 24;
     hei = 24;
+    function findIndex(arr,val) {
+        for(var i in arr) {
+            if(arr[i] == val) {
+                return i;
+            }
+        }
+        return false;
+    }
+    Array.prototype.removeIt = function(val) {
+        var s = findIndex(this,val);
+        if(s!==false) {
+            this.splice(s,1);
+        }
+    };
     function E(a, b) {
         return !(
             ((a.y + a.height) < (b.y)) ||
@@ -121,20 +137,35 @@ window.onload = function(e) {
                 t.pressDown = false;
             };
         };
+        //this.drownTime = false;
+        //this.tm = false;
         stage.addChild(this.bit);
         
         stage.update();
         //this.step = 1;
         this.update = function() {
-            if(E(this,ground) && this.y<=ground.y-this.height) {
+            if(E(this,ground) && this.y<=ground.y-this.height+2) {
                 //console.log("Bam",this.y,ground.y);
                 this.onGround = true;
+                if(this.y>ground.y-this.height) {
+                    this.y = ground.y-this.height;
+                }
             } else if(!this.pressDown) {
                 this.y += 3;
                 this.onGround = false;
+                //clearTimeout(this.tm);
             }
+            /*if(this.y>canvas.height-12 && !this.drownTime) {
+                this.tm = setTimeout(function() {
+                    alert("Bambalam.");
+                }, 3000);
+                this.drownTime = true;
+            }*/
             if(this.y>canvas.height) {
-                this.y = 0;
+                //this.y = 0;
+                //this.y = canvas.height-this.height;
+                stage.removeChild(this.bit);
+                players.removeIt(this);
             }
             this.bit.y = this.y;
             this.bit.x = this.x;
@@ -254,15 +285,26 @@ window.onload = function(e) {
         trash.mouseEnabled = true;*/
         
         var r = new Graphics();
+        window.ground = new Shape(r);
         r.beginFill("brown");
         r.drawRect(0,0,canvas.width-wid*2,hei);
-        window.ground = new Shape(r);
         ground.x = wid;
         ground.y = canvas.height-hei;
-        ground.mouseEnabled = true;
         ground.width = canvas.width-wid*2;
         ground.height = hei;
-        console.log("derp");
+        var im = new Image();
+        im.onload = function(e) {
+            r.beginBitmapFill(this);
+            r.drawRect(0,0,canvas.width-wid*2,hei);
+            window.ground = new Shape(r);
+            ground.x = wid;
+            ground.y = canvas.height-hei;
+            ground.width = canvas.width-wid*2;
+            ground.height = hei;
+            ground.mouseEnabled = true;
+            console.log("derp");
+        }
+        im.src = "Graphics/water_tiles.svg";
         
         var s = new Text("+", "38px Arial", "brown");
         s.mouseEnabled = true;
@@ -276,7 +318,9 @@ window.onload = function(e) {
         s2.outline = true;
         //s.shadow = new Shadow("yellow", 0, 0, 6);
         s.onClick = function(e) {
-            window.players.push(new Player(canvas.width/2-wid/2,hei,pImg));
+            if(players.length<6) {
+                window.players.push(new Player(canvas.width/2-wid/2,hei,pImg));
+            }
         };
         
         //stage.addChild(block);
