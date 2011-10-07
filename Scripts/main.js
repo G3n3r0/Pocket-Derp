@@ -144,14 +144,24 @@ window.onload = function(e) {
         stage.update();
         //this.step = 1;
         this.update = function() {
-            if(E(this,ground) && this.y<=ground.y-this.height+2) {
+            var q = {
+                width: ground.width,
+                height: hei,
+                x: ground.x,
+                y: canvas.height-hei
+            };
+            //console.log(q, E(this,q));
+            //if(E(this,q) && this.y<=ground.y-this.height+2) {
+            if(E(this,q) && this.y<=q.y-this.height+12) {
+                //console.log(ground.height,this.y,E(this,ground));
+                //if(this.y<=ground.y-this.height+2) {
                 //console.log("Bam",this.y,ground.y);
                 this.onGround = true;
-                if(this.y>ground.y-this.height) {
-                    this.y = ground.y-this.height;
+                if(this.y>q.y-this.height) {
+                    this.y = q.y-this.height;
                 }
             } else if(!this.pressDown) {
-                this.y += 3;
+                this.y += 12;
                 this.onGround = false;
                 //clearTimeout(this.tm);
             }
@@ -286,25 +296,27 @@ window.onload = function(e) {
         
         var r = new Graphics();
         window.ground = new Shape(r);
-        r.beginFill("brown");
-        r.drawRect(0,0,canvas.width-wid*2,hei);
+        r.beginFill("green");
+        r.drawRect(0,0,canvas.width-wid*2,hei*2);
         ground.x = wid;
-        ground.y = canvas.height-hei;
+        ground.y = canvas.height-hei*2;
         ground.width = canvas.width-wid*2;
         ground.height = hei;
         var im = new Image();
         im.onload = function(e) {
+            //stage.removeChild(window.ground);
+            r.clear();
             r.beginBitmapFill(this);
-            r.drawRect(0,0,canvas.width-wid*2,hei);
+            r.drawRect(0,0,canvas.width-wid*2,hei*2);
             window.ground = new Shape(r);
             ground.x = wid;
-            ground.y = canvas.height-hei;
+            ground.y = canvas.height-hei*2;
             ground.width = canvas.width-wid*2;
             ground.height = hei;
             ground.mouseEnabled = true;
             console.log("derp");
         }
-        im.src = "Graphics/water_tiles.svg";
+        im.src = "Graphics/GrassBlock48.png";
         
         var s = new Text("+", "38px Arial", "brown");
         s.mouseEnabled = true;
